@@ -7,7 +7,18 @@ const postRouter = require('./routes/posts')
 
 
 
+app.use(bodyParser.json({
+    limit: "30mb",
+    extended:true
+}))
 
+app.use(bodyParser.urlencoded({
+    limit: "30mb",
+    extended: true
+}))
+
+//Cors should be above your middlewares
+app.use(cors())
 
 
 
@@ -19,17 +30,7 @@ const postRouter = require('./routes/posts')
 app.use('/posts', postRouter)
 
 
-app.use(bodyParser.json({
-    limit: "30mb",
-    extended:true
-}))
 
-app.use(bodyParser.urlencoded({
-    limit: "30mb",
-    extended: true
-}))
-
-app.use(cors())
 
 const CONNECTION_URL = 'mongodb+srv://kulklex:adekunle08118082878@cluster0.jooda.mongodb.net/?retryWrites=true&w=majority'
 const PORT = process.env.PORT || 5000
