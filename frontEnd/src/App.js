@@ -6,7 +6,8 @@ import Posts from './components/Posts/Posts';
 import Form from './components/Form/Form';
 import useStyles from "./styles"
 import {useDispatch} from 'react-redux'
-import {getPosts} from "./actions/posts"
+import { getPosts } from "./redux/actions/posts"
+import Counter from "./redux/sets/Counter";
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
         </Grid>
       </Container>
     </Grow>
+    <Counter/>
   </Container>;
 }
 
