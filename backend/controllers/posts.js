@@ -1,3 +1,4 @@
+const { default: mongoose } = require('mongoose')
 const PostMessage = require('../models/postMessage.js')
 
 
@@ -21,5 +22,22 @@ const createPosts = async (req, res) => {
     }
 }
 
+const updatePost = async (req, res) => {
+    const {id: _id}  = req.params  
+    const {title, message, selectedFile, creator, tags} = req.body
 
-module.exports = {getPosts, createPosts}
+
+    if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('The Id of this post does not exist')
+    //this chechks if the id exist 
+
+    try {
+        const updatedPost = await PostMessage.findByIdAndUpdate(_id, {title, message, selectedFile, creator, tags}, {new: true})
+        //findByIdAndUpdate receives three parameters, the id, the input field body, and the {new: true} statement
+        // {new: true} here is for you to receive the updated version of the input fields (title, creator....)
+         res.status(201).json(updatedPost)
+    } catch (error) {
+        res.status(400).json({message: error.message})
+    }
+}
+
+module.exports = {getPosts, createPosts, updatePost}
