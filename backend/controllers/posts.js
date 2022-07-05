@@ -11,13 +11,13 @@ const getPosts = async (req, res) => {
 }
 
 const createPosts = async (req, res) => {
-    const {post} = req.body //req.body gives you access to all data inputed (i.e. the body of the data, the actual data)
-    const newPost = new PostMessage(post) 
+    const {title, message, selectedFile, creator, tags} = req.body //req.body gives you access to all data inputed (i.e. the body of the data, the actual data)
+    const newPost = new PostMessage({title, message, selectedFile, creator, tags}) 
     try {
-        await newPost.save() //saving the post data (the data inputed) into the database
-        res.status(201).json(newPost)
+        const savedPost = await newPost.save() //saving the post data (the data inputed) into the database
+        res.status(201).json(savedPost)
     } catch (error) {
-        res.status(409).json({message: error.message})
+        res.status(400).json({message: error.message})
     }
 }
 
