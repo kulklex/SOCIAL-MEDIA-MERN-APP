@@ -28,7 +28,7 @@ const updatePost = async (req, res) => {
 
 
     if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('The Id of this post does not exist')
-    //this chechks if the id exist 
+    //this checks if the id exist 
 
     try {
         const updatedPost = await PostMessage.findByIdAndUpdate(_id, {title, message, selectedFile, creator, tags}, {new: true})
