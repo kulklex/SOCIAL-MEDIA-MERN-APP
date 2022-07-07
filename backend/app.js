@@ -2,10 +2,11 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const cors = require('cors')
+const dotenv = require('dotenv')
 const app = express()
 const postRouter = require('./routes/posts')
 
-
+dotenv.config()
 
 app.use(bodyParser.json({
     limit: "30mb",
@@ -32,7 +33,7 @@ app.use('/posts', postRouter)
 
 
 
-const CONNECTION_URL = 'mongodb+srv://kulklex:adekunle08118082878@cluster0.jooda.mongodb.net/?retryWrites=true&w=majority'
+const CONNECTION_URL = process.env.CONNECTION_URL
 const PORT = process.env.PORT || 5000
 
 
