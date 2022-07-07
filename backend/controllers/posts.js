@@ -55,7 +55,7 @@ const likePost = async (req, res) => {
     if(!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send("The Id does not exist")
 
     const post = await PostMessage.findById(id)
-    const updatedPost = await PostMessage.findByIdAndUpdate(id, {likeCount: post.likeCount + 1}, {new: true})
+    const updatedPost = await PostMessage.findByIdAndUpdate(id, {likeCount: ++post.likeCount}, {new: true})
 
     res.status(200).json(updatePost)
 }
