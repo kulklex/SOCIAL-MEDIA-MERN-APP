@@ -8,7 +8,6 @@ import {useDispatch} from 'react-redux'
 import { getPosts } from "./redux/actions/posts"
 import Navbar from "./components/Navbar/Navbar";
 
-
 function App() {
   const [currentId, setCurrentId] = useState(null); 
   const classes = useStyles()
@@ -28,6 +27,9 @@ function App() {
         </Grid>
       </Container>
     </Grow>
+
+
+ 
   </Container>;
 }
 
