@@ -16,7 +16,7 @@ export default function Posts({setCurrentId}) {
    } else {
     return (<Grid className={classes.container} container alignItems="stretch" spacing={3}>
       {post.map((posts) => (
-        <Grid key={posts.id} item xs={12} sm={6} md={6}>
+        <Grid key={posts} item xs={12} sm={6} md={6}>
           <Post post={posts} setCurrentId={setCurrentId}/>
         </Grid>
       ))}
