@@ -15,7 +15,7 @@ const signup = async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 12) //we're hashing the password using bcrypt, the second argument is the salt(the number is the level of difficulty we want the hash to follow, default is 10)
 
         const result = await User.create({email, password: hashedPassword, name: `${firstName} ${lastName}`}) // Finally creating the user, we joined the firstName and lastName variables to one and called it 'name'
-        const token = jwt.sign({email: result.email, id: result._id}, 'test', {expiresIn: '2h'})
+        const token = jwt.sign({email: result.email, id: result._id}, process.env.JWT_SECRET_KEY, {expiresIn: '2h'})
 
         res.status(200).json({result, token})
     } catch (error) {
@@ -36,7 +36,7 @@ const signin = async (req, res) => {
         const isPasswordCorrect = await bcrypt.compare(password, existingUser.password) //To compare the inputted password(password) with the password saved in the database for that user(existingUser.password)
         if(!isPasswordCorrect) return res.status(400).json({message: "Invalid email or password"})
 
-        const token = jwt.sign({email: existingUser.email, id: existingUser._id},  'test', {expiresIn: '2h'}) //we're using jwt to send the data to the frontend, note the 'test' here it was expecting a secret key that is in the .env file, also the {expireIn} states when the user token will expire i.e. how long it'll take before the user is automatically loggedOut
+        const token = jwt.sign({email: existingUser.email, id: existingUser._id},  process.env.JWT_SECRET_KEY, {expiresIn: '2h'}) //we're using jwt to send the data to the frontend, note the 'test' here it was expecting a secret key that is in the .env file, also the {expireIn} states when the user token will expire i.e. how long it'll take before the user is automatically loggedOut
         res.status(200).json({result: existingUser, token})
     
     } catch (error) {
