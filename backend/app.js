@@ -5,6 +5,7 @@ const cors = require('cors')
 const dotenv = require('dotenv')
 const app = express()
 const postRouter = require('./routes/posts')
+const userRoutes = require("./routes/user")
 
 dotenv.config()
 
@@ -29,7 +30,7 @@ app.use(cors())
 
 
 app.use('/posts', postRouter)
-
+app.use('/user', userRoutes)
 
 
 
