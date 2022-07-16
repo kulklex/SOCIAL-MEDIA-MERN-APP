@@ -14,21 +14,40 @@ import { GoogleLogin } from "react-google-login";
 import Icon from "./icon";
 import { useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
+import {signin, signup} from "../../redux/actions/auth"
+
+
 
 const Auth = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const classes = useStyles();
+  const initialState = {firstName: '', lastName: '', email: '', password: '', confirmPassword: ''}
   const [isSignUp, setIsSignUp] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [formData, setFormData] = useState(initialState)
   const switchMode = () => {
     // To Toggle
     setIsSignUp((prevIsSignUp) => !prevIsSignUp);
     //Reset The Show & Hide Password to false, this will rest it and hide it
     handleShowPassword(false);
   };
-  const handleSubmit = () => {};
-  const handleChange = () => {};
+
+  
+  const handleSubmit = (e) => {
+    e.preventDefault() //This is to avoid auto-refreshing as we want to get the input values, the auto-refreshing refreshes it and we loose the values
+    
+    if(isSignUp){
+      dispatch(signup(formData, navigate))
+    } else {
+      dispatch(signin(formData, navigate))
+    }
+  };
+  const handleChange = (e) => {
+    //This handle change is using onChange event but encapsulated with props, checkout the Input component for better view
+    setFormData({...formData, [e.target.name]: e.target.value}) // this will spread all of the other properties, but also change the specific one we're filling in the current input fields
+    //also make sure the names here are exactly the same as the names of the input fields i.e. name property in input tags
+  };
   const handleShowPassword = () => {
     //To Toggle Show & Hide Password
     setShowPassword((prevShowPassword) => !prevShowPassword);
@@ -50,6 +69,9 @@ const Auth = () => {
     console.log(err)
     console.error("Google Sign-In was unsuccessful. Try Again");
   };
+
+
+
 
   return (
     <Container component="main" maxWidth="xs">
