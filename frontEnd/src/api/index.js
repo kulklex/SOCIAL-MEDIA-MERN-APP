@@ -1,6 +1,17 @@
 import axios from "axios"
 
 const axiosInstance = axios.create({baseURL: 'http://localhost:5000'})
+
+
+//This function will help us with the verify middleware(authorization) in the server-side
+axiosInstance.interceptors.request.use((req) => {
+    if(localStorage.getItem('profile')) {
+        req.headers.Authorization = `Bearer ${JSON.parse(localStorage.getItem('profile')).token}`
+    }
+    return req
+})
+
+
 const url = "/posts";
 
 export const fetchPosts = () => axiosInstance.get(url);
