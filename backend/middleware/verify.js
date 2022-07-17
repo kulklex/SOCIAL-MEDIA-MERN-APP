@@ -6,7 +6,7 @@ const verify = async(req, res, next) => {
         // what is happening here is that we're fetching the token to check if it's valid
         // so the token is located in the headers, under authorization(u can use postman or console.log(token) to confirm)
         //right when we get the token, it'll be prefixed by string "Bearer  AUTHORIZED_TOKEN_STRING" so we have to split after white space which we specified below, then take the second value in index form i.e. 1
-        const token = req.headers.authorization.split(" ")[1]
+        const token = req.headers.Authorization.split(" ")[1]
         const isCustomAuth = token.length < 500          //to make sure the token length is ours, if > 500 it means it's google's auth
 
         let decodedData;
