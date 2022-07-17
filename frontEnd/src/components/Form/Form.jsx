@@ -6,10 +6,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { createPosts, updatePost } from "../../redux/actions/posts";
 
 export default function Form({currentId, setCurrentId}) {
+  const classes = useStyles();
+  const user = JSON.parse(localStorage.getItem('profile'))
   const dispatch = useDispatch();
   const post = useSelector((state) => currentId ? state.posts.find((p) => p._id === currentId) : null)
   const [postData, setPostData] = useState({
-    creator: "",
     title: "",
     message: "",
     tags: "",
@@ -23,7 +24,7 @@ export default function Form({currentId, setCurrentId}) {
 
   const clear = () => {
     setCurrentId(null)
-    setPostData({creator: "",
+    setPostData({
     title: "",
     message: "",
     tags: "",
@@ -35,13 +36,22 @@ export default function Form({currentId, setCurrentId}) {
     e.preventDefault(); //to avoid getting the refresh in the browser
 
     if(currentId) {
-      dispatch(updatePost( currentId, postData));
+      dispatch(updatePost(currentId, {...postData, name: user?.result?.name}));
     } else{
-      dispatch(createPosts(postData));
+      dispatch(createPosts({...postData, name: user?.result?.name }));
     }
     clear()
   };
-  const classes = useStyles();
+
+
+  if(!user?.result?.name){
+    return (<Paper className={classes.paper} >
+      <Typography variant="h6" align="center" >
+        Please Sign In to create your post
+      </Typography>
+    </Paper>)
+  }
+ 
   return (
     <>
       <Paper className={classes.paper}>
@@ -52,16 +62,6 @@ export default function Form({currentId, setCurrentId}) {
           onSubmit={handleSubmit}
         >
           <Typography variant="h6">{currentId ? "Editing" : "Creating"} a Memory</Typography>
-          <TextField
-            name="creator"
-            variant="outlined"
-            label="Creator"
-            fullWidth
-            value={postData.creator}
-            onChange={(e) => {
-              setPostData({ ...postData, creator: e.target.value });
-            }}
-          />
           <TextField
             name="title"
             variant="outlined"
@@ -75,7 +75,7 @@ export default function Form({currentId, setCurrentId}) {
           <TextField
             name="message"
             variant="outlined"
-            label="Message "
+            label="Message"
             fullWidth
             multiline
             minRows={4}

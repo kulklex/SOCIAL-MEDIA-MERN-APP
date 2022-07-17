@@ -24,7 +24,7 @@ export default function Post({post, setCurrentId}) {
     <CardMedia className={classes.media} image={post.selectedFile} title={post.title}/>
       <div className={classes.overlay}>
       <Typography variant='h3'>{post.title}</Typography>
-        <Typography variant='h6'>{post.creator}</Typography>
+        <Typography variant='h6'>{post.name}</Typography>
         <Typography variant='body2'>{moment(post.createdAt).fromNow()}</Typography>
       </div>
       <div className={classes.overlay2}>
