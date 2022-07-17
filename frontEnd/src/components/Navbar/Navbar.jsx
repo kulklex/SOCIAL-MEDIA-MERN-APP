@@ -13,9 +13,10 @@ const Navbar = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const logout = () => {
+    if(window.confirm("You are about to logout")){
     dispatch({type: 'LOGOUT'})
     navigate('/')
-    setUser(null)
+    setUser(null)}
   }
 
   //using the use effect so we do not have to explicitly refresh the user state 
