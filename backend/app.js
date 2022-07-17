@@ -30,7 +30,7 @@ app.use(cors())
 
 
 app.use('/posts', postRouter)
-app.use('/user', userRoutes)
+app.use('/users', userRoutes)
 
 
 

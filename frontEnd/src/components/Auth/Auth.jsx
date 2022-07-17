@@ -27,10 +27,10 @@ const Auth = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState(initialState)
   const switchMode = () => {
-    // To Toggle
+    // To Toggle the sign-in or signup option
     setIsSignUp((prevIsSignUp) => !prevIsSignUp);
-    //Reset The Show & Hide Password to false, this will rest it and hide it
-    handleShowPassword(false);
+    //Reset Password to false when the user switches from sign-in to signup or vice-versa this will rest it and hide it
+    setShowPassword(false);
   };
 
   
