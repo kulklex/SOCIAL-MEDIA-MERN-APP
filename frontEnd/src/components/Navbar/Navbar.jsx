@@ -4,7 +4,7 @@ import memories from "../../images/memories.avif";
 import useStyles from "../../styles";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from 'react-redux';
-
+import decode from 'jwt-decode'
 
 const Navbar = () => {
   const classes = useStyles();
@@ -22,9 +22,14 @@ const Navbar = () => {
   //using the use effect so we do not have to explicitly refresh the user state 
   useEffect(()=> {
     const token = user?.token
+    if(token){
+      const decodedToken = decode(token)
+      if(decodedToken.exp * 1000 < new Date().getTime()) logout()
+    } // all this part do is make sure when the token expires the user is logged out
 
     setUser(JSON.parse(localStorage.getItem('profile')))
   }, [location])
+  
 
   return (
     <AppBar className={classes.appBar} position="static" color="inherit">
