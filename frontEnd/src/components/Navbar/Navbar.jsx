@@ -31,7 +31,7 @@ const Navbar = () => {
       <div className={classes.brandContainer}>
         <Link to="/">  
         <Typography  className={classes.heading}  variant="h2" align="center">
-          Memories
+          MERN-Social-Media
         </Typography>
          </Link>
         <img
