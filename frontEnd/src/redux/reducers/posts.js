@@ -1,6 +1,6 @@
 import {CREATE, UPDATE, DELETE, FETCH_ALL, LIKE} from "../../constants/actionTypes"
 
-export default function reducer (posts = [], action) {
+export default function reducer (posts = [] /*Initial State*/, action) {
     switch (action.type) {
         case CREATE:
              return [...posts, action.payload]              
