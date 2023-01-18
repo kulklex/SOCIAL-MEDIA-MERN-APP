@@ -27,11 +27,8 @@ app.use(cors())
 
 
 
-
-
 app.use('/posts', postRouter)
 app.use('/users', userRoutes)
-
 
 
 const CONNECTION_URL = process.env.CONNECTION_URL

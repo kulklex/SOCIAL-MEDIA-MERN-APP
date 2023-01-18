@@ -15,6 +15,7 @@ const Navbar = () => {
   const logout = () => {
     if(window.confirm("You are about to logout")){
     dispatch({type: 'LOGOUT'})
+    window.location.reload();
     navigate('/')
     setUser(null)}
   }
