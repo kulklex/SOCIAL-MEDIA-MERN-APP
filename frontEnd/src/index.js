@@ -12,7 +12,7 @@ import PostDetail from "./components/Posts/PostDetails/PostDetail";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from "react-toastify";
 
-
+const user = JSON.parse(localStorage.getItem("profile"));
 const store = createStore(rootReducer, compose(applyMiddleware(thunk)));
 
 ReactDOM.render(
@@ -24,11 +24,10 @@ ReactDOM.render(
         <Route path="/posts" exact element={<App />} />
         <Route path="/posts/search" exact element={<App />} />
         <Route path="/posts/:id" exact element={<PostDetail />} />
-        <Route path="/auth" exact element={<Auth />}></Route>
+        <Route path="/auth" exact element={ user ? <Navigate to='/posts'/> : <Auth />}></Route>
       </Routes>
     </BrowserRouter>
     <ToastContainer/>
-    ;
   </Provider>,
   document.getElementById("root")
 );

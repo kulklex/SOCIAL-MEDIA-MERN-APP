@@ -24,6 +24,10 @@ export const signup =  (formData, navigate) => async (dispatch) => {
         dispatch({type: AUTH, data})
         navigate('/')
     } catch (error) {
+        if(error.response) {
+            const {data} = error.response
+            toast.error(data.message)
+        }
         console.log(error)
     }
 }

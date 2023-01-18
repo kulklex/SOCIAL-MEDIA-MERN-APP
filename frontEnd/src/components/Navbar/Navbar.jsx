@@ -35,17 +35,17 @@ const Navbar = () => {
   return (
     <AppBar className={classes.appBar} position="static" color="inherit">
       <div className={classes.brandContainer}>
-        <Link to="/">  
-        <Typography  className={classes.heading}  variant="h2" align="center">
-          MERN-Social-Media
+        <Link to="/" style={{textDecoration: 'none'}}>  
+        <Typography  className={classes.heading}  variant="h4" align="center">
+          Social-Media
         </Typography>
          </Link>
-        <img
+        {/* <img
           className={classes.image}
           src={memories}
           alt="memories"
           height="60"
-        />
+        /> */}
       </div>
       <Toolbar className={classes.toolbar}>
     {
