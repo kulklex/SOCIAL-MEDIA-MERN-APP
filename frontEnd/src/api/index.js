@@ -20,5 +20,6 @@ export const updatePost = (id, updatedPost) => axiosInstance.patch(`${url}/${id}
 export const deletePost = (id) => axiosInstance.delete(`${url}/${id}`)
 export const likePost = (id) => axiosInstance.patch(`${url}/${id}/like`)
 
+
 export const signIn = (formData) => axiosInstance.post('/users/signin', formData)
 export const signUp = (formData) => axiosInstance.post('users/signup', formData)
