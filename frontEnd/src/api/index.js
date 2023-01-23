@@ -11,15 +11,15 @@ axiosInstance.interceptors.request.use((req) => {
     return req
 })
 
+;
 
-const url = "/posts";
-
-export const fetchPosts = () => axiosInstance.get(url);
-export const createPosts = (newPost) => axiosInstance.post(url, newPost)
-export const updatePost = (id, updatedPost) => axiosInstance.patch(`${url}/${id}`, updatedPost)
-export const deletePost = (id) => axiosInstance.delete(`${url}/${id}`)
-export const likePost = (id) => axiosInstance.patch(`${url}/${id}/like`)
+export const fetchPosts = () => axiosInstance.get("/posts");
+export const createPosts = (newPost) => axiosInstance.post("/posts", newPost)
+export const updatePost = (id, updatedPost) => axiosInstance.patch(`/posts/${id}`, updatedPost)
+export const deletePost = (id) => axiosInstance.delete(`/posts/${id}`)
+export const likePost = (id) => axiosInstance.patch(`/posts/${id}/like`)
+export const fetchPostsBySearch = (searchQuery) => axiosInstance.get(`/posts/search?searchQuery=${searchQuery.searchItem || 'none'}&tags=${searchQuery.tags}`)
 
 
 export const signIn = (formData) => axiosInstance.post('/users/signin', formData)
-export const signUp = (formData) => axiosInstance.post('users/signup', formData)
+export const signUp = (formData) => axiosInstance.post('/users/signup', formData)

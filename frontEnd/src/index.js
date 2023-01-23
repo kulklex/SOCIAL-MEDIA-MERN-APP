@@ -20,11 +20,11 @@ ReactDOM.render(
     <BrowserRouter>
       <Routes>
         {/* Because there's no Home Page, We are redirecting the Home path to the Posts path */}
-        <Route path="/" exact element={<Navigate to='/posts'/>} /> 
-        <Route path="/posts" exact element={<App />} />
-        <Route path="/posts/search" exact element={<App />} />
-        <Route path="/posts/:id" exact element={<PostDetail />} />
-        <Route path="/auth" exact element={ user ? <Navigate to='/posts'/> : <Auth />}></Route>
+        <Route path="/" element={<Navigate to='/posts'/>} /> 
+        <Route path="/posts"  element={<App />} />
+        <Route path="/posts/search"  element={<App />} />
+        <Route path="/posts/:id"  element={<PostDetail />} />
+        <Route path="/auth"  element={ user ? <Navigate to='/posts'/> : <Auth />}/>
       </Routes>
     </BrowserRouter>
     <ToastContainer/>
