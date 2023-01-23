@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
@@ -12,10 +12,12 @@ import PostDetail from "./components/Posts/PostDetails/PostDetail";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from "react-toastify";
 
+const element = document.getElementById("root")
+const root = ReactDOM.createRoot(element)
 const user = JSON.parse(localStorage.getItem("profile"));
 const store = createStore(rootReducer, compose(applyMiddleware(thunk)));
 
-ReactDOM.render(
+root.render(
   <Provider store={store}>
     <BrowserRouter>
       <Routes>
@@ -28,6 +30,5 @@ ReactDOM.render(
       </Routes>
     </BrowserRouter>
     <ToastContainer/>
-  </Provider>,
-  document.getElementById("root")
+  </Provider>
 );

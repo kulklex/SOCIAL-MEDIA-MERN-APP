@@ -1,10 +1,11 @@
 import React, {useState, useEffect} from "react";
 import { AppBar, Avatar, Button, Toolbar, Typography } from "@material-ui/core";
-import memories from "../../images/memories.avif";
+// import memories from "../../images/memories.avif";
 import useStyles from "./styles";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 import decode from 'jwt-decode'
+
 
 const Navbar = () => {
   const classes = useStyles();
@@ -15,9 +16,10 @@ const Navbar = () => {
   const logout = () => {
     if(window.confirm("You are about to logout")){
     dispatch({type: 'LOGOUT'})
+    navigate('/auth')
+    setUser(null)
     window.location.reload();
-    navigate('/')
-    setUser(null)}
+  }
   }
 
   //using the use effect so we do not have to explicitly refresh the user state 
@@ -26,12 +28,12 @@ const Navbar = () => {
     if(token){
       const decodedToken = decode(token)
       if(decodedToken.exp * 1000 < new Date().getTime()) logout()
-    } // all this part do is make sure when the token expires the user is logged out
+    } // What this part does is, it makes sure that when the token expires the user is logged out
 
     setUser(JSON.parse(localStorage.getItem('profile')))
   }, [location])
   
-
+  
   return (
     <AppBar className={classes.appBar} position="static" color="inherit">
       <div className={classes.brandContainer}>
@@ -61,6 +63,6 @@ const Navbar = () => {
       </Toolbar>
     </AppBar>
   );
-};
+}
 
 export default Navbar;

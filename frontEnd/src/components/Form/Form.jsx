@@ -33,7 +33,7 @@ export default function Form({currentId, setCurrentId}) {
   const handleSubmit = async (e) => {
     e.preventDefault(); //to avoid getting the refresh in the browser
 
-    if(currentId == 0) {
+    if(currentId === 0) {
       dispatch(createPosts({...postData, name: user?.result?.name }));
     } else {
       dispatch(updatePost(currentId, {...postData, name: user?.result?.name}));
