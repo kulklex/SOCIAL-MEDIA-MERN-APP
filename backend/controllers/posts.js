@@ -78,4 +78,18 @@ const likePost = async (req, res) => {
     res.status(200).json(updatedPost)
 }
 
-module.exports = {getPosts, createPosts, deletePost, updatePost, likePost}
+
+const getPostsBySearch = async (req, res) => {
+    const {searchQuery, tags} = req.query
+    try {
+        const title = new RegExp(searchQuery, 'i') //i stands for case insensitive
+        const posts = await PostMessage.find({$or: [{title}, {tags: {$in: tags.split(',')}}]})
+        // The 'posts' variable is literally saying find me all the posts that match either exactly the title or tags (is one of the tags in the array of tags equal to tags variable that is gotten from the query, req.query.tags)
+        res.status(200).json({data: posts})
+    } catch (error) {
+        res.status(404).json({message: error.message})
+        
+    }
+}
+
+module.exports = {getPosts, createPosts, deletePost, updatePost, likePost, getPostsBySearch}
