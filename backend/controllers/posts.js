@@ -3,13 +3,31 @@ const PostMessage = require('../models/postMessage.js')
 
 
 const getPosts = async (req, res) => {
+      const {page} = req.query //we are integrating pagination so our posts can be split into pages 
    try {
-       const postMessages = await PostMessage.find();
-        res.status(200).json(postMessages)
+       const LIMIT = 10 //The limit of posts per page
+       const startIndex = (Number(page) - 1) * LIMIT //The index number of the post each page should begin with, its -1 because index starts from 0
+       // i.e second and third page will start posts from index numbers 20 and 30 respectively since our LIMIT is 10 per page
+       
+       const total = await PostMessage.countDocuments() //To get the total number of posts, it'll help confirm the last page we can scroll to
+       const posts = await PostMessage.find().sort({_id: -1}).limit(LIMIT).skip(startIndex) 
+       //It'll sort the posts by newest to oldest then limit them to out LIMIT variable, and finally we skip all the previous pages so only gets posts from the startIndex of the page
+        res.status(200).json({data: posts, currentPage: Number(page), numberOfPages: Math.ceil(total/LIMIT)})
    } catch (error) {
        res.status(404).json({message: error.message})
    }
 }
+
+const getPostById = async (req, res) => {
+    const {id} = req.params
+    try {
+        const post = await PostMessage.findById(id)
+        res.status(200).json(post)
+    } catch (error) {
+        res.status(400).json({message: error.message})
+    }
+}
+
 
 const createPosts = async (req, res) => {
     const post = req.body //req.body gives you access to all data inputted (i.e. the body of the data, the actual data)
@@ -92,4 +110,4 @@ const getPostsBySearch = async (req, res) => {
     }
 }
 
-module.exports = {getPosts, createPosts, deletePost, updatePost, likePost, getPostsBySearch}
+module.exports = {getPosts, createPosts, deletePost, updatePost, likePost, getPostsBySearch, getPostById}
