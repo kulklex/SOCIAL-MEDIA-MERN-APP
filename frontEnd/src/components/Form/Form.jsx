@@ -11,35 +11,33 @@ export default function Form({currentId, setCurrentId}) {
   const dispatch = useDispatch();
   const post = useSelector((state) => currentId ? state.posts.find((p) => p._id === currentId) : null)
   const [postData, setPostData] = useState({
-    title: "",
-    message: "",
-    tags: "",
+    title: " ",
+    message: " ",
+    tags: [],
     selectedFile: " ",
   });
 
-  useEffect(() => {
-    if(post) setPostData(post)
-  }, [post]);
-
+ 
 
   const clear = () => {
-    setCurrentId(null)
-    setPostData({
-    title: "",
-    message: "",
-    tags: "",
-    selectedFile: " ",})
-  };
+    setCurrentId(0)
+    setPostData({ title: '', message: '', tags: [], selectedFile: '' })
+  }
+
+  useEffect(() => {
+    if (!post?.title) clear()
+    if(post) setPostData(post)
+  }, [post]);
 
 
   const handleSubmit = async (e) => {
     e.preventDefault(); //to avoid getting the refresh in the browser
 
-    if(currentId) {
-      dispatch(updatePost(currentId, {...postData, name: user?.result?.name}));
-    } else{
+    if(currentId == 0) {
       dispatch(createPosts({...postData, name: user?.result?.name }));
-    }
+    } else {
+      dispatch(updatePost(currentId, {...postData, name: user?.result?.name}));
+    } 
     clear()
   };
 
