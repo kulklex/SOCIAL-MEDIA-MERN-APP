@@ -20,7 +20,7 @@ function useQuery() {
 
 function App() {
   const [currentId, setCurrentId] = useState(0); 
-  const [searchItem, setSearchItem] = useState('');
+  const [search, setSearch] = useState('');
   const [tags, setTags] = useState([]);
   const classes = useStyles()
   const dispatch = useDispatch()
@@ -46,12 +46,12 @@ function App() {
   const handleDelete = (tagToDelete) => setTags(tags.filter(tag => tag!== tagToDelete))
   
   const searchPosts = () => {
-    if(searchItem.trim()  || tags){
+    if(search.trim()  || tags){
       //Because we can't pass an array through the url parameter,
       // we need to convert it to a string with the join method, they are each separated by a comma
       //i.e an array like ['europe', 'asia'] will become 'europe,asia'
-      dispatch(getPostsBySearch({searchItem, tags: tags.join(',')}));
-      navigate(`/posts/search?searchQuery=${searchItem || 'none'}&tags=${tags.join(',')}`)
+      dispatch(getPostsBySearch({search, tags: tags.join(',')}));
+      navigate(`/posts/search?searchQuery=${search || 'none'}&tags=${tags.join(',')}`)
     } else {
       navigate('/')
     }
@@ -74,7 +74,7 @@ function App() {
           <Grid item xs={12} sm={3} md={3}>
             <AppBar position="static" color="inherit" className={classes.appBarSearch}>
               <TextField name="search" variant="outlined" label="Search Post" fullWidth 
-              onKeyPress={handleKeyPress}  onChange={(e) => {setSearchItem(e.target.value)}}/>
+              onKeyPress={handleKeyPress}  onChange={(e) => {setSearch(e.target.value)}}/>
 
               <ChipInput style={{margin: '10px 0'}} value={tags} label="Search Tags" variant="outlined" 
                 onAdd={handleAdd} onDelete={handleDelete} />

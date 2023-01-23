@@ -18,7 +18,7 @@ export const createPosts = (newPost) => axiosInstance.post("/posts", newPost)
 export const updatePost = (id, updatedPost) => axiosInstance.patch(`/posts/${id}`, updatedPost)
 export const deletePost = (id) => axiosInstance.delete(`/posts/${id}`)
 export const likePost = (id) => axiosInstance.patch(`/posts/${id}/like`)
-export const fetchPostsBySearch = (searchQuery) => axiosInstance.get(`/posts/search?searchQuery=${searchQuery.searchItem || 'none'}&tags=${searchQuery.tags}`)
+export const fetchPostsBySearch = (searchQuery) => axiosInstance.get(`/posts/search?searchQuery=${searchQuery.search || 'none'}&tags=${searchQuery.tags}`)
 
 
 export const signIn = (formData) => axiosInstance.post('/users/signin', formData)
