@@ -8,9 +8,9 @@ import App from "./App";
 import "./index.css";
 import { rootReducer } from "./redux/reducers/index";
 import Auth from "./components/Auth/Auth";
-import PostDetail from "./components/Posts/PostDetails/PostDetail";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from "react-toastify";
+import PostDetail from "./components/Posts/PostDetails/PostDetail";
 
 const element = document.getElementById("root")
 const root = ReactDOM.createRoot(element)

@@ -13,6 +13,7 @@ axiosInstance.interceptors.request.use((req) => {
 
 ;
 
+export const fetchPostById = (id) => axiosInstance.get(`/posts/${id}`);
 export const fetchPosts = () => axiosInstance.get("/posts");
 export const createPosts = (newPost) => axiosInstance.post("/posts", newPost)
 export const updatePost = (id, updatedPost) => axiosInstance.patch(`/posts/${id}`, updatedPost)
