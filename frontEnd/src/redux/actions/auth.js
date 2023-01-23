@@ -1,6 +1,6 @@
 import React from 'react';
 import * as api from "../../api/index"
-import { AUTH } from "../../constants/actionTypes";
+import { AUTH } from "./actionTypes";
 import { toast} from "react-toastify"
 
 

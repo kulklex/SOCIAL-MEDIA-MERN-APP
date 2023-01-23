@@ -7,7 +7,7 @@ import useStyles from "./styles"
 import {useLocation, useNavigate} from "react-router-dom";
 import ChipInput from 'material-ui-chip-input';
 import {useDispatch} from 'react-redux'
-import { getPosts } from "./redux/actions/posts"
+import { getPosts, getPostsBySearch } from "./redux/actions/posts"
 import Navbar from "./components/Navbar/Navbar";
 import Pagination from "./components/Pagination/Pagination";
 
@@ -19,7 +19,7 @@ function useQuery() {
 
 
 function App() {
-  const [currentId, setCurrentId] = useState(null); 
+  const [currentId, setCurrentId] = useState(0); 
   const [searchItem, setSearchItem] = useState('');
   const [tags, setTags] = useState([]);
   const classes = useStyles()
@@ -32,7 +32,7 @@ function App() {
   // or it'll just be 1, meaning the first page
   const page = query.get('page') || 1
 
-  const search = query.get('search')
+  const searchQuery = query.get('searchQuery')
 
   
   const handleKeyPress = (e) => {
@@ -46,8 +46,12 @@ function App() {
   const handleDelete = (tagToDelete) => setTags(tags.filter(tag => tag!== tagToDelete))
   
   const searchPosts = () => {
-    if(searchItem.trim()){
-    //display
+    if(searchItem.trim()  || tags){
+      //Because we can't pass an array through the url parameter,
+      // we need to convert it to a string with the join method, they are each separated by a comma
+      //i.e an array like ['europe', 'asia'] will become 'europe,asia'
+      dispatch(getPostsBySearch({searchItem, tags: tags.join(',')}));
+      navigate(`/posts/search?searchQuery=${searchItem || 'none'}&tags=${tags.join(',')}`)
     } else {
       navigate('/')
     }
@@ -62,7 +66,7 @@ function App() {
     <Navbar/>
     <Grow in>
       <Container>
-        <Grid container className={classes.mainContainer} justifyContent="space-between" alignItems="stretch" spacing={3} classes={classes.gridContainer}>
+        <Grid container justifyContent="space-between" alignItems="stretch" spacing={3} className={classes.gridContainer}>
           <Grid item xs={12} sm={6} md={9}>
             <Posts setCurrentId={setCurrentId}/>
           </Grid>
@@ -81,7 +85,9 @@ function App() {
             <Form currentId={currentId} setCurrentId={setCurrentId}/>
           </Grid>
 
-          <Paper elevation={6}> <Pagination/> </Paper>
+          {(!searchQuery && !tags.length) && (
+            <Paper elevation={6}> <Pagination page={page}/> </Paper>
+          )}
         </Grid>
       </Container>
     </Grow>
