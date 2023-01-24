@@ -7,13 +7,12 @@ import {toast} from "react-toastify"
 export const getPosts = (page) =>  async (dispatch) =>  {
     try {
         dispatch({type: START_LOADING})
-        const {data} = await api.fetchPosts(page);
-         dispatch({type: FETCH_ALL, payload: data})
+        const {data: {data, currentPage, numberOfPages}} = await api.fetchPosts(page);
+         dispatch({type: FETCH_ALL, payload: {data, currentPage, numberOfPages}})
          dispatch({type: END_LOADING})
     } catch (error) {
         console.error(error)
     }
-
 }
 
 export const getPostsBySearch = (search) =>  async (dispatch) =>  {
@@ -36,7 +35,6 @@ export const getPostsById = (id) => async (dispatch) =>  {
         dispatch({type: START_LOADING})
         const {data} = await api.fetchPostById(id)
         dispatch({type: FETCH_POST, payload: {post: data}})
-        dispatch({type: END_LOADING})
     } catch (error) {
         if (error.response) {
             toast.error(error.response.data.message)

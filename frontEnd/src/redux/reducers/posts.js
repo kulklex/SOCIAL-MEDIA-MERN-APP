@@ -18,9 +18,9 @@ export default function reducer (state = {isLoading: true, posts: []} /*Initial 
                 numberOfPages: action.payload.numberOfPages
             }
          case FETCH_BY_SEARCH:
-            return {...state, posts:action.payload}
+            return {...state, posts: action.payload.data}
         case FETCH_POST:
-            return {...state, post: action.payload}
+            return {...state, post: action.payload.post}
         case START_LOADING:
             return {...state, isLoading: true}
         case END_LOADING:
