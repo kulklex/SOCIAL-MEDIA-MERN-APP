@@ -105,9 +105,27 @@ const getPostsBySearch = async (req, res) => {
         // The 'posts' variable is literally saying find me all the posts that match either exactly the title or tags (is one of the tags in the array of tags equal to tags variable that is gotten from the query, req.query.tags)
         res.status(200).json({data: posts})
     } catch (error) {
-        res.status(404).json({message: error.message})
-        
+        res.status(404).json({message: error.message})   
     }
 }
 
-module.exports = {getPosts, createPosts, deletePost, updatePost, likePost, getPostsBySearch, getPostById}
+
+const commentPost = async (req, res) => {
+    const {id} = req.params
+    const {comment} = req.body
+
+    try {
+        //first we find the posts that we are commenting on
+        const post = await PostMessage.findById(id)
+        
+        post.comments.push(comment)
+
+        const updatedPost = await PostMessage.findByIdAndUpdate(id, post, {new: true})
+
+        return res.status(200).json(updatedPost)
+    } catch (error) {
+        res.status(404).json({message: error.message})
+    }
+}
+
+module.exports = {getPosts, createPosts, deletePost, updatePost, likePost, getPostsBySearch, getPostById, commentPost}
