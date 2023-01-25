@@ -4,9 +4,11 @@ import useStyles from "./styles";
 import FileBase from "react-file-base64";
 import { useDispatch, useSelector } from "react-redux";
 import { createPosts, updatePost } from "../../redux/actions/posts";
+import { useNavigate } from "react-router-dom";
 
 export default function Form({currentId, setCurrentId}) {
   const classes = useStyles();
+  const navigate = useNavigate()
   const user = JSON.parse(localStorage.getItem('profile'))
   const dispatch = useDispatch();
   const post = useSelector((state) => currentId ? state.posts.posts.find((p) => p._id === currentId) : null)
@@ -27,6 +29,7 @@ export default function Form({currentId, setCurrentId}) {
   useEffect(() => {
     if (!post?.title) clear()
     if(post) setPostData(post)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [post]);
 
 
@@ -34,9 +37,9 @@ export default function Form({currentId, setCurrentId}) {
     e.preventDefault(); //to avoid getting the refresh in the browser
 
     if(currentId === 0) {
-      dispatch(createPosts({...postData, name: user?.result?.name }));
+      dispatch(createPosts({...postData, name: user?.result?.name }, navigate));
     } else {
-      dispatch(updatePost(currentId, {...postData, name: user?.result?.name}));
+      dispatch(updatePost(currentId, {...postData, name: user?.result?.name}, navigate));
     } 
     clear()
   };

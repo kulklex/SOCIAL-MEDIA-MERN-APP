@@ -14,12 +14,10 @@ const Navbar = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const logout = () => {
-    if(window.confirm("You are about to logout")){
     dispatch({type: 'LOGOUT'})
     navigate('/auth')
     setUser(null)
-    window.location.reload();
-  }
+    window.location.reload()
   }
 
   //using the use effect so we do not have to explicitly refresh the user state 
@@ -31,6 +29,7 @@ const Navbar = () => {
     } // What this part does is, it makes sure that when the token expires the user is logged out
 
     setUser(JSON.parse(localStorage.getItem('profile')))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location])
   
   

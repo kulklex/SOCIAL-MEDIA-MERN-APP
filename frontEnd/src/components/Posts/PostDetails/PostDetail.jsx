@@ -17,17 +17,19 @@ const PostDetail = () => {
 
     useEffect(() => {
         dispatch(getPostsById(id))
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id])
 
     useEffect(() => {
         if(post){
             dispatch(getPostsBySearch({search: 'none', tags: post?.tags.join(',')}))
-        }
+        } 
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [post])
     
 
 
-    const recommendedPosts = posts.filter(({_id}) => _id !== post?._id)
+    const recommendedPosts = posts?.filter(({_id}) => _id !== post?._id)
     
     if (!post) return null
 
@@ -41,7 +43,7 @@ const PostDetail = () => {
 
     const openPost = (_id) => navigate(`/posts/${_id}`)
 
-    
+
 
     return (<>
     <Navbar/>
@@ -60,8 +62,8 @@ const PostDetail = () => {
             <Divider style={{ margin: '20px 0' }} />
           </div>
           <div className={classes.imageSection}>
-            <img className={classes.media} srcSet={post?.selectedFile ||
-            'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} alt={post?.post?.title} />
+            <img  className={classes.media} alt=" " srcSet={post?.selectedFile ||
+            'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} />
           </div>
         </div>
         {recommendedPosts?.length && (
@@ -73,8 +75,8 @@ const PostDetail = () => {
               <div style={{ margin: '20px', cursor: 'pointer' }} onClick={() => openPost(_id)} key={_id}>
                 <Typography gutterBottom variant="h6">{title}</Typography>
                 <Typography gutterBottom variant="subtitle2">{name}</Typography>
-                <Typography gutterBottom variant="subtitle2">{message}</Typography>
-                <Typography gutterBottom variant="subtitle1">Likes: {likes.length}</Typography>
+                <Typography gutterBottom variant="subtitle2">{message.split(' ').splice(0, 10).join(' ')}...</Typography>
+                <Typography gutterBottom variant="subtitle1">Likes: {likes?.length}</Typography>
                 <img src={selectedFile} alt={title} width="200px" />
               </div>
             ))} 

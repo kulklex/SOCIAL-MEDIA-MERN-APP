@@ -43,10 +43,11 @@ export const getPostsById = (id) => async (dispatch) =>  {
     }
 }
 
-export const createPosts = (post) =>  async (dispatch) =>  {
+export const createPosts = (post, navigate) =>  async (dispatch) =>  {
     try {
         dispatch({type: START_LOADING})
         const {data} = await api.createPosts(post)
+        navigate(`/posts/${data?._id}`)
         dispatch({type: CREATE, payload: data})
         dispatch({type: END_LOADING})
     } catch (error) {
@@ -55,17 +56,16 @@ export const createPosts = (post) =>  async (dispatch) =>  {
 
 }
 
-export const updatePost = (id, post) =>  async (dispatch) =>  {
+export const updatePost = (id, post, navigate) =>  async (dispatch) =>  {
     try {
         const {data: {data}} = await api.updatePost(id, post);
-         dispatch({type: UPDATE, payload: data})
+        navigate(`/posts/${id.toString()}`);
+        dispatch({type: UPDATE, payload: data})
     } catch (error) {
         console.error(error)
     }
 
-}
-
-
+} 
 
 export const likePost = (id) => async (dispatch) => {
     try {
