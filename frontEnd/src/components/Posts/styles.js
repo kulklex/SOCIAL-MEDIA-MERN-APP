@@ -12,4 +12,14 @@ export default makeStyles((theme) => ({
   actionDiv: {
     textAlign: 'center',
   },
+  commentsOuterContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+  commentsInnerContainer: {
+    height: '200px',
+    width: '40%',
+    overflowY: 'auto',
+    marginRight: '30px',
+  },
 }))

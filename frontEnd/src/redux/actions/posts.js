@@ -1,5 +1,5 @@
 import * as api from "../../api/index"
-import {CREATE, UPDATE, DELETE, FETCH_ALL, LIKE, FETCH_BY_SEARCH, START_LOADING, END_LOADING, FETCH_POST} from "./actionTypes"
+import {CREATE, UPDATE, DELETE, FETCH_ALL, LIKE, FETCH_BY_SEARCH, START_LOADING, END_LOADING, FETCH_POST, COMMENT} from "./actionTypes"
 import {toast} from "react-toastify"
 
 
@@ -51,6 +51,9 @@ export const createPosts = (post, navigate) =>  async (dispatch) =>  {
         dispatch({type: CREATE, payload: data})
         dispatch({type: END_LOADING})
     } catch (error) {
+        if (error.response) {
+            toast.error(error.response.data.message)
+        }
         console.error(error)
     }
 
@@ -62,6 +65,9 @@ export const updatePost = (id, post, navigate) =>  async (dispatch) =>  {
         navigate(`/posts/${id.toString()}`);
         dispatch({type: UPDATE, payload: data})
     } catch (error) {
+        if (error.response) {
+            toast.error(error.response.data.message)
+        }
         console.error(error)
     }
 
@@ -72,6 +78,24 @@ export const likePost = (id) => async (dispatch) => {
        const {data} = await api.likePost(id) 
        dispatch({type: LIKE, payload: data})
     } catch (error) {
+        if (error.response) {
+            toast.error(error.response.data.message)
+        }
+        console.error(error)
+    }
+}
+
+export const commentPost = (comment, postId) => async (dispatch) => {
+    try {
+      const {data} =  await api.commentPost(comment, postId)
+      dispatch({type: COMMENT, payload: data})
+
+      // This is to return the latest comment
+      return data.comments
+    } catch (error) {
+        if (error.response) {
+            toast.error(error.response.data.message)
+        }
         console.error(error)
     }
 }
