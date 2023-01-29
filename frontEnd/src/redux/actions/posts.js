@@ -47,12 +47,13 @@ export const createPosts = (post, navigate) =>  async (dispatch) =>  {
     try {
         dispatch({type: START_LOADING})
         const {data} = await api.createPosts(post)
-        navigate(`/posts/${data?._id}`)
+        navigate(`/posts`)
         dispatch({type: CREATE, payload: data})
         dispatch({type: END_LOADING})
     } catch (error) {
         if (error.response) {
             toast.error(error.response.data.message)
+            console.error(error)
         }
         console.error(error)
     }
@@ -62,7 +63,7 @@ export const createPosts = (post, navigate) =>  async (dispatch) =>  {
 export const updatePost = (id, post, navigate) =>  async (dispatch) =>  {
     try {
         const {data: {data}} = await api.updatePost(id, post);
-        navigate(`/posts/${id.toString()}`);
+        navigate(`/posts`);
         dispatch({type: UPDATE, payload: data})
     } catch (error) {
         if (error.response) {

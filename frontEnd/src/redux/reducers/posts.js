@@ -5,13 +5,13 @@ export default function reducer (state = {isLoading: true, posts: []} /*Initial 
         case CREATE:
              return {...state, posts:action.payload}              
         case LIKE:
-            return {...state, posts: state.posts.map((post) => post._id === action.payload._id ? action.payload : post)}
+            return {...state, posts: state.posts?.map((post) => post._id === action.payload._id ? action.payload : post)}
         case DELETE:
-            return {...state, posts: state.posts.filter((post) => post._id !== action.payload)}
+            return {...state, posts: state.posts?.filter((post) => post._id !== action.payload)}
         case UPDATE:
             // Firstly we return all the other posts normally
             // Then change only the post that is being updated
-            return {...state, posts: state.posts.map((post) => post.id === action.payload._id ? action.payload : post)}
+            return {...state, posts: state.posts?.map((post) => post.id === action.payload._id ? action.payload : post)}
         case FETCH_ALL:
             return {
                 ...state,
@@ -26,7 +26,7 @@ export default function reducer (state = {isLoading: true, posts: []} /*Initial 
         case COMMENT:
             // Firstly we return all the other posts normally
             // Then change only the post that just received a comment
-            return {...state, posts: state.posts.map((post) => post._id === action.payload._id ? action.payload : post)};
+            return {...state, posts: state.posts?.map((post) => post._id === action.payload._id ? action.payload : post)};
         case START_LOADING:
             return {...state, isLoading: true}
         case END_LOADING:

@@ -11,13 +11,16 @@ import Auth from "./components/Auth/Auth";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from "react-toastify";
 import PostDetail from "./components/Posts/PostDetails/PostDetail";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 const element = document.getElementById("root")
 const root = ReactDOM.createRoot(element)
 const user = JSON.parse(localStorage.getItem("profile"));
 const store = createStore(rootReducer, compose(applyMiddleware(thunk)));
 
+
 root.render(
+ <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}> 
   <Provider store={store}>
     <BrowserRouter>
       <Routes>
@@ -31,4 +34,4 @@ root.render(
     </BrowserRouter>
     <ToastContainer/>
   </Provider>
-);
+</GoogleOAuthProvider>);
