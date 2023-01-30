@@ -12,6 +12,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from "react-toastify";
 import PostDetail from "./components/Posts/PostDetails/PostDetail";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import Page404 from './components/Page404/Page404';
 
 const element = document.getElementById("root")
 const root = ReactDOM.createRoot(element)
@@ -30,6 +31,7 @@ root.render(
         <Route path="/posts/search"  element={<App />} />
         <Route path="/posts/:id"  element={<PostDetail />} />
         <Route path="/auth"  element={ user ? <Navigate to='/posts'/> : <Auth />}/>
+        <Route path="*" element={<Page404/>}/>
       </Routes>
     </BrowserRouter>
     <ToastContainer/>
