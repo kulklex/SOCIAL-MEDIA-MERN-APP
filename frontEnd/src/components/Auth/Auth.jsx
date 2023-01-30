@@ -58,9 +58,7 @@ const Auth = () => {
     let token;
 
     if (res?.credential)  {
-      console.log(res)
       result = jwtDecode(res?.credential)
-      console.log(result)
       const {sub, name, email, picture} = result
       result = {
         _id: sub,
@@ -77,6 +75,7 @@ const Auth = () => {
     try {
       dispatch({type: 'AUTH', data: {result, token}})
       navigate('/')
+      toast.success(`Welcome ${result?.name}`)
     } catch (error) {
       console.log(error)
     }

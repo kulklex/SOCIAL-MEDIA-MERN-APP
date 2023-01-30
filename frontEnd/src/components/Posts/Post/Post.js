@@ -45,7 +45,7 @@ import { Link } from 'react-router-dom';
     <CardMedia className={classes.media} image={post.selectedFile || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} title={post.title}/>
     <Link style={{textDecoration: 'none'}} to={`/posts/${post._id}`}  >
       <div className={classes.overlay}>
-        <Typography variant='h3'>{post.title}</Typography>
+        <Typography variant='h4'>{post.title}</Typography>
         <Typography variant='h6'>{post.name}</Typography>
         <Typography variant='body2'>{moment(post.createdAt).fromNow()}</Typography>
       </div>   
