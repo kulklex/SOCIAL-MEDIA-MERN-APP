@@ -4,7 +4,7 @@ import jwtDecode from "jwt-decode";
 import useStyles from "./styles";
 import LockOutLinedIcon from "@material-ui/icons/LockOutlined";
 import Input from "./Input";
-import { GoogleLogin} from '@react-oauth/google';
+import { GoogleLogin } from '@react-oauth/google';
 import Icon from "./icon";
 import { useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
@@ -21,6 +21,8 @@ const Auth = () => {
   const [isSignUp, setIsSignUp] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState(initialState)
+
+
   const switchMode = () => {
     // To Toggle the sign-in or signup option
     setIsSignUp((prevIsSignUp) => !prevIsSignUp);
@@ -175,6 +177,6 @@ const Auth = () => {
       </Paper>
     </Container>
   );
-};
+}
 
 export default Auth;

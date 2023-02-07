@@ -1,6 +1,6 @@
 import * as api from "../../api/index"
 import { AUTH } from "./actionTypes";
-import { toast} from "react-toastify"
+import { toast } from "react-toastify"
 
 
 export const signin =  (formData, navigate) => async (dispatch) => {
@@ -8,7 +8,6 @@ export const signin =  (formData, navigate) => async (dispatch) => {
         const {data} = await api.signIn(formData)
         dispatch({type: AUTH, data})
         navigate('/')
-        console.log(data)
         toast.success(`Welcome ${data?.result.name}!`)
     } catch (error) {
         if(error.response) {
@@ -24,6 +23,7 @@ export const signup =  (formData, navigate) => async (dispatch) => {
         const {data} = await api.signUp(formData)
         dispatch({type: AUTH, data})
         navigate('/')
+        toast.success(`Welcome ${data?.result.name}!`)
     } catch (error) {
         if(error.response) {
             const {data} = error.response
