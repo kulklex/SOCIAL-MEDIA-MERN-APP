@@ -19,10 +19,12 @@ app.use(bodyParser.urlencoded({
     extended: true
 }))
 
-//Cors should be above your middlewares
+//Cors should be above your middleware
 app.use(cors())
 
-
+app.get('/', (req, res) => {
+    res.send("APP IS RUNNING")
+})
 
 
 
