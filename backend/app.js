@@ -22,15 +22,16 @@ app.use(bodyParser.urlencoded({
 //Cors should be above your middleware
 app.use(cors())
 
-app.get('/', (req, res) => {
-    res.send("APP IS RUNNING")
-})
-
 
 
 
 app.use('/posts', postRouter)
 app.use('/users', userRoutes)
+
+app.get('/', (req, res) => {
+    res.send("APP IS RUNNING")
+})
+
 
 
 const CONNECTION_URL = process.env.CONNECTION_URL
