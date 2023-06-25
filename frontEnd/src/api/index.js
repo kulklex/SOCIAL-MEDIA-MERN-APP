@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const axiosInstance = axios.create({baseURL: 'http://localhost:5000'})
+const axiosInstance = axios.create({baseURL: 'https://social-media-mern-app-production.up.railway.app/'})
 
 
 //This function will help us with the verify middleware(authorization) in the server-side
